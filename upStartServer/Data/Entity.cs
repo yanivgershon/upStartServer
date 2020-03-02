@@ -16,6 +16,15 @@ namespace upStartServer.Data
         public string Description { get; set; }
         public int Amount { get; set; }
         public long Date { get; set; }
-        public bool IsPrivate { get; set; }     
+        public bool IsPrivate { get; set; }
+
+        internal void update(Entity entity)
+        {
+            this.Name = entity.Name;
+            this.Description = entity.Description;
+            this.Amount = entity.Amount;
+            this.Date = entity.Date;
+            this.IsPrivate = entity.IsPrivate;
+        }
     }
 }

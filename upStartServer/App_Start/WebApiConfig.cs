@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
@@ -13,7 +14,8 @@ namespace upStartServer
         {
             config.Formatters.JsonFormatter.SupportedMediaTypes
     .Add(new MediaTypeHeaderValue("text/html"));
-            var corsAttr = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+           
+            var corsAttr = new EnableCorsAttribute(ConfigurationManager.AppSettings["ClientUrl"], "*", "*");
             config.EnableCors(corsAttr);
            // config.EnableCors();
             // Web API configuration and services

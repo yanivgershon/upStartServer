@@ -87,13 +87,14 @@ namespace upStartServer.Controllers
                 db.Entities.Add(entity);
             else
             {
-                var result = db.Entities.SingleOrDefault(b => b.Id == entity.Id);
+                Entity result = db.Entities.SingleOrDefault(b => b.Id == entity.Id);
                 if (result != null)
                 {
                     try
                     {
-                        db.Entities.Attach(entity);
-                        db.Entry(entity).State = EntityState.Modified;
+                        //db.Entities.Attach(result);
+                        result.update(entity);
+                        db.Entry(result).State = EntityState.Modified;
                         db.SaveChanges();
                     }
                     catch (Exception ex)
@@ -111,15 +112,8 @@ namespace upStartServer.Controllers
                 db.SaveChanges();
             }
             catch (DbUpdateException)
-            {
-                if (EntityExists(entity.Id/*??new Guid()*/))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+            {               
+               throw;            
             }
 
             return CreatedAtRoute("DefaultApi", new { id = entity.Id }, entity);
